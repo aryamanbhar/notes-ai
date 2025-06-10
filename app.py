@@ -2,6 +2,9 @@ import streamlit as st
 import pymupdf 
 import openai
 
+#load OpenAI API key from Streamlit secrets
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
 st.set_page_config(page_title="notes-ai PDF Annotation Explorer", layout="wide")
 st.title("notes-ai PDF Annotation Explorer")
 st.markdown(
@@ -12,6 +15,17 @@ st.markdown(
 
 uploaded_file = st.file_uploader("Upload an annotated PDF", type="pdf")
 
+#ASK LLM
+def ask_llm(annotation, context):
+    prompt = f"Explain this annotation for a student: '{annotation}'\n\nSlide context: '{context}'\n\nKeep it concise and beginner-friendly."
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=300
+    )
+    return response['choices'][0]['message']['content'].strip()
+
+
 if uploaded_file:
     # Load PDF from uploaded file
     pdf_bytes = uploaded_file.read()
@@ -20,9 +34,14 @@ if uploaded_file:
     # Store annotation selections in session state
     if "selected_annots" not in st.session_state:
         st.session_state["selected_annots"] = {}
+    
+    #Store explanation in session state
+    if "ai_explanations" not in st.session_state:
+        st.session_state["ai_explanations"] = {}
 
     st.sidebar.header("Extracted Annotations")
     found_any = False
+    annotations_list = []
 
     for page_number, page in enumerate(doc, start=1):
         # Render page image
@@ -30,11 +49,15 @@ if uploaded_file:
         img_bytes = pix.tobytes("png")
         st.image(img_bytes, caption=f"Page {page_number}", width=500)
 
+        # Get all text on the page for context
+        slide_context = page.get_text().strip().replace('\n', ' ')
+
         # Extract annotations
         annot = page.first_annot
         while annot:
             annot_type = annot.type[0]
             annot_label = None
+            content = annot.info.get("content", "")
 
             if annot_type == 1:
                 annot_label = "Sticky Note"
@@ -58,26 +81,46 @@ if uploaded_file:
             else:
                 annot_label = None
 
-            # Show annotation in sidebar with checkbox
-            if annot_label:
+            if annot_label and content:
                 found_any = True
                 key = f"{page_number}-{annot.xref}"
-                if annot_type == 8:
-                    content = " / ".join(highlighted_chunks)
-                else:
-                    content = annot.info.get("content", "")
-                st.sidebar.checkbox(
+                checked = st.sidebar.checkbox(
                     f"Page {page_number} | {annot_label}: {content}",
                     key=key,
                     value=True
                 )
+                if checked:
+                    annotations_list.append({
+                        "page": page_number,
+                        "type": annot_label,
+                        "text": content,
+                        "context": slide_context,
+                        "key": key
+                    })
             annot = annot.next
 
     if not found_any:
         st.info("No extractable annotations found in this PDF.")
+    else:
+        st.sidebar.markdown("---")
+        if st.sidebar.button("Send selected to AI"):
+            st.session_state["ai_explanations"] = {}  # Reset explanations
+            with st.spinner("Contacting OpenAI..."):
+                for annot in annotations_list:
+                    try:
+                        explanation = ask_llm(annot["text"], annot["context"])
+                        st.session_state["ai_explanations"][annot["key"]] = explanation
+                    except Exception as e:
+                        st.session_state["ai_explanations"][annot["key"]] = f"Error: {e}"
 
-    st.sidebar.markdown("---")
-    st.sidebar.button("Send selected to AI (coming soon!)")
+    # Display AI explanations below each page
+    if st.session_state.get("ai_explanations"):
+        st.header("AI Explanations")
+        for annot in annotations_list:
+            key = annot["key"]
+            if key in st.session_state["ai_explanations"]:
+                st.markdown(f"**Page {annot['page']} | {annot['type']}:** {annot['text']}")
+                st.success(st.session_state["ai_explanations"][key])
 
 else:
     st.info("Upload an annotated PDF to get started.")
