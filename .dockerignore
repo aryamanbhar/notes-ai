@@ -1,0 +1,18 @@
+# Exclude virtual environments and local config
+.venv/
+venv/
+
+# Exclude environment files (so secrets aren't baked into the image)
+.env
+
+# Exclude git (good practice)
+.git/
+.gitignore
+
+# Other common ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.DS_Store

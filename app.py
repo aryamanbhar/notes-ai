@@ -1,9 +1,18 @@
 import streamlit as st
 import pymupdf 
-import openai
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
-#load OpenAI API key from Streamlit secrets
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key=api_key)
+
+if not api_key:
+    st.error("OpenAI API key not found. Please set it in your .env file.")
+    st.stop()
 
 st.set_page_config(page_title="notes-ai PDF Annotation Explorer", layout="wide")
 st.title("notes-ai PDF Annotation Explorer")
@@ -18,12 +27,13 @@ uploaded_file = st.file_uploader("Upload an annotated PDF", type="pdf")
 #ASK LLM
 def ask_llm(annotation, context):
     prompt = f"Explain this annotation for a student: '{annotation}'\n\nSlide context: '{context}'\n\nKeep it concise and beginner-friendly."
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+    response = client.chat.completions.create(
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
         max_tokens=300
     )
-    return response['choices'][0]['message']['content'].strip()
+    # return response['choices'][0]['message']['content'].strip()
+    return response.choices[0].message.content.strip()
 
 
 if uploaded_file:
