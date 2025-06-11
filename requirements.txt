@@ -1,4 +1,6 @@
 streamlit
 pymupdf
-openai
 python-dotenv
+transformers
+torch
+
