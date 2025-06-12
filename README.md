@@ -1,94 +1,68 @@
-# 🧠 notes-ai: Your AI Creative Study Companion
+# 🧠 notes-ai: Your AI-Powered Lecture Companion
 
-**Turn your annotated lecture slides into personalized study aids — with zero copy-pasting.**
+University students often annotate over lecture slides with highlights, questions, or typed notes — but when it comes to truly understanding difficult concepts, traditional AI tools fall short.
 
-> “Students don’t write fresh notes. They annotate slides. What if AI could read those annotations and *help exactly where you’re confused* — with mnemonics, analogies, and diagrams? That’s what `notes-ai` does.”
-
----
+notes-ai bridges that gap.
 
 ## 🎯 Problem
 
-Current AI tools (like ChatGPT) require you to:
+- Students rarely write their own notes from scratch — they annotate slides using iPads, laptops, or styluses.
+- When confused, they might:
+  - Paste whole PDFs into ChatGPT (losing context)
+  - Copy-paste specific lines (tedious, disconnected)
+- GPT responses are often **generic**, unaware of the lecture context or the meaning behind annotations.
 
-- Copy-paste from lecture slides
-- Manually write prompts
-- Parse generic responses
-- Repeat this over and over
+## 🧪 Solution: Context-Aware AI Study Aids
 
-But most students just highlight, doodle, or question things **directly on slides**. They don’t want to leave their slides behind.
+notes-ai processes **annotated lecture slides** and:
+- Detects **highlights**, **typed notes**, and **handwritten annotations**
+- Understands the **position**, **intent**, and **context**
+- Generates **creative, personalized aids** for those parts:
+  - 📘 ELI5 explanations
+  - 💡 Mnemonics & analogies
+  - 🖼️ Diagrams and visual aids *(Coming Soon)*
 
----
+## 👩‍💻 How It Works
 
-## 🚀 Solution: This App
+1. **Upload PDF slides** — with annotations (highlighted, handwritten, or typed).
+2. notes-ai extracts:
+   - Slide text
+   - Highlighted text (via color detection)
+   - Typed notes (via PyMuPDF)
+   - Handwritten annotations (via OCR)
+3. AI selects annotated content as "focus areas"
+4. For each, it auto-generates:
+   - Clear ELI5-style explanations
+   - Mnemonics or analogies
+   - Optional diagrams (text-to-image, planned)
+5. User accepts, edits, or inserts AI output into an enhanced slide deck or study guide.
 
-### 📥 Upload PDF slides (with highlights or handwritten notes)
-- Detect **annotations**, **highlights**, and **handwritten questions**
+## 🚀 Features
 
-### 🧠 Understand what's confusing
-- Auto-select annotated content as "priority targets"
-- Generate context-aware prompts *without you typing*
+- ✅ Highlight detection (yellow, blue, green, etc.)
+- ✅ OCR for handwritten annotations
+- ✅ Extraction of typed notes from PDFs
+- ✅ Automatic prompt generation — no manual input needed
+- ✅ Creative explanations, not just summaries
+- 🔜 Reintegration into PDF slides or export as study guides (in development)
 
-### 🎨 Generate creative study aids:
-- ✏️ **ELI5 explanations**
-- 💡 **Mnemonics & analogies**
-- 🖼️ **Diagrams** (via image generation)
+## 📸 Example Use Case
 
-### 📤 Export a study guide or enhanced slides
+> Slide 3: "Gibbs Free Energy"
+>
+> Annotated question: "Still don’t get what this means for reactions?"
+>
+> AI Output:
+> - 🧠 **ELI5**: Gibbs Free Energy tells you whether a reaction will happen on its own.
+> - 🎯 **Mnemonic**: "Go Get Free Energy = G"
+> - 🖼️ **Diagram**: [coming soon]
 
----
+## 🧠 Why It's Better Than Just Using GPT
 
-## 🧪 Tech Stack
-
-| Area | Tools |
-|------|-------|
-| Frontend | Streamlit |
-| AI/LLMs | OpenAI API |
-| OCR | Tesseract, pytesseract |
-| PDF Parsing | PyMuPDF |
-| Image Processing | OpenCV |
-| Diagram Generation | Stable Diffusion XL |
-| Deployment | Docker (in progress) |
-
----
-
-## 🖼️ User Flow
-
-1. **Upload** your annotated PDF (e.g. Samsung Notes or GoodNotes export)
-2. **Detect annotations** – both typed highlights & handwritten notes
-3. **Auto-select targets** – or uncheck the ones you don’t want help with
-4. **AI explains** each one:
-   - ELI5 explanation
-   - Mnemonic or analogy
-   - Optional diagram
-5. **Review + Export** as:
-   - Study guide (Markdown or ZIP)
-   - Enhanced slides (coming soon)
-
----
-
-## 📌 Why Not Just Use GPT?
-
-| Feature | GPT | `notes-ai` |
-|--------|-----|------------|
-| Input | Manual text | Full annotated PDFs |
-| Annotation-aware | ❌ | ✅ |
-| Tailored explanations | ❌ | ✅ |
-| Mnemonics & diagrams | ❌ | ✅ |
-| Export & reuse | ❌ | ✅ |
-| Prompting | Manual | Automated |
-
----
-
-## 📸 Sample (Coming Soon)
-
-![demo](./screenshots/demo.gif)
-
----
-
-## 🧰 Setup (Local Dev)
-
-```bash
-git clone https://github.com/aryamanbhar/notes-ai.git
-cd notes-ai
-pip install -r requirements.txt
-streamlit run app.py
+| GPT | notes-ai |
+|-----|----------|
+| Requires copy-pasting | Works on full PDFs |
+| No awareness of highlights or notes | Understands context, annotations |
+| Generic summaries | Tailored explanations |
+| No diagrams by default | Generates visuals & mnemonics |
+| No reintegration | Designed for slide enhancement |
