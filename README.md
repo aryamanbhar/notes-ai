@@ -66,3 +66,11 @@ notes-ai processes **annotated lecture slides** and:
 | Generic summaries | Tailored explanations |
 | No diagrams by default | Generates visuals & mnemonics |
 | No reintegration | Designed for slide enhancement |
+
+## 🧰 Setup (Local Dev)
+
+```bash
+git clone https://github.com/aryamanbhar/notes-ai.git
+cd notes-ai
+pip install -r requirements.txt
+streamlit run app.py
