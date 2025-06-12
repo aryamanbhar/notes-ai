@@ -3,4 +3,6 @@ pymupdf
 python-dotenv
 transformers
 torch
+pytesseract
+
 

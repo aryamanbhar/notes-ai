@@ -4,9 +4,9 @@ import pytesseract
 import pymupdf
 import cv2
 import numpy as np
+from config import TESSERACT_PATH
 
-# Set Tesseract path (adjust this if needed)
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 
 def extract_handwritten_text(image_bytes):
     try:

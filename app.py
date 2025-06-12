@@ -1,16 +1,9 @@
 import streamlit as st
 import pymupdf
-from PIL import Image
-import io
-from dotenv import load_dotenv
-import os
-
 from ocr import extract_handwritten_text, run_full_page_ocr
 from ai import generate_creative_outputs, generate_diagram_image_sdxl, load_model
 from utils import get_annot_hash
 from export import export_notes_md, export_notes_md_images, get_diagrams_zip
-
-load_dotenv()
 
 st.set_page_config(
     page_title="notes-ai PDF Annotation Explorer",
