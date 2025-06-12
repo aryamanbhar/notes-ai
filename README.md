@@ -22,6 +22,39 @@ notes-ai processes **annotated lecture slides** and:
   - 💡 Mnemonics & analogies
   - 🖼️ Diagrams and visual aids *(Coming Soon)*
 
+## 🚀 Overview
+
+`notes-ai-assistant` integrates Optical Character Recognition (OCR) with Large Language Models (LLMs) from Hugging Face and vision models to transform annotated documents, handwritten notes, and images into structured, searchable, and actionable digital text.
+
+- Uses **Tesseract OCR** and fallback handwritten text extraction pipelines.
+- Utilizes **Hugging Face Inference API** for semantic understanding, summarization, and Q&A with state-of-the-art LLMs (e.g., `facebook/bart-large-cnn`, `google/flan-t5-xl`).
+- Integrates **Stable Diffusion** for optional note image enhancements and visualization.
+- Built with **Streamlit** for rapid interactive UI and prototyping.
+- Containerized with **Docker** for portability and reproducible deployments.
+
+---
+
+## 🧰 Tech Stack & Tools
+
+- **Languages:** Python 3.10+
+- **OCR:** [Tesseract OCR](https://github.com/tesseract-ocr/tesseract), `pytesseract`
+- **Text Generation:** Hugging Face Large Language Models (LLMs) via [Inference API](https://huggingface.co/inference-api)
+- **Image Generation:** Stable Diffusion (Diffusion-based generative model)
+- **Web UI:** Streamlit
+- **Containerization:** Docker
+
+---
+
+## ⚙️ Features
+
+- Multi-modal OCR pipeline combining typed and handwritten text extraction
+- Contextual semantic parsing via Hugging Face LLMs for summaries, questions, and insights
+- Real-time annotation recognition from images or PDF uploads
+- Modular architecture enabling easy model swaps or upgrades
+- Dockerized for local development and scalable cloud deployment
+
+
+
 ## 👩‍💻 How It Works
 
 1. **Upload PDF slides** — with annotations (highlighted, handwritten, or typed).

@@ -1,8 +1,10 @@
 streamlit
 pymupdf
+pillow
 python-dotenv
 transformers
 torch
 pytesseract
+requests
 
 

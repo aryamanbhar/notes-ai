@@ -1,9 +1,13 @@
 import streamlit as st
 import pymupdf
+import os
 from ocr import extract_handwritten_text, run_full_page_ocr
 from ai import generate_creative_outputs, generate_diagram_image_sdxl, load_model
 from utils import get_annot_hash
 from export import export_notes_md, export_notes_md_images, get_diagrams_zip
+
+os.environ["STREAMLIT_CONFIG_DIR"] = "/tmp/.streamlit"
+os.environ["STREAMLIT_CACHE_DIR"] = "/tmp/.streamlit/cache"
 
 st.set_page_config(
     page_title="notes-ai PDF Annotation Explorer",
