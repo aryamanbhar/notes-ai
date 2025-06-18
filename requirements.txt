@@ -6,5 +6,6 @@ transformers
 torch
 pytesseract
 requests
+opencv-python
 
 
