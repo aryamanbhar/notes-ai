@@ -133,6 +133,7 @@ if uploaded_file:
                                 if image_bytes:
                                     st.session_state["diagram_images"][key] = image_bytes
                                 else:
+                                    st.error("Failed to generate diagram. Please check your prompt and try again.")
                                     st.session_state["diagram_images"][key] = None
 
                         img_bytes = st.session_state["diagram_images"].get(key)

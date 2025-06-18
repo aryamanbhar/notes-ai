@@ -76,6 +76,10 @@ def generate_diagram_image_sdxl(diagram_prompt):
         )
         if response.status_code == 200 and response.headers.get("content-type", "").startswith("image"):
             return response.content
+        elif response.status_code == 503:
+            return {"error": "Model is loading, please try again in a few minutes"}
+        elif response.status_code == 429:
+            return {"error": "Rate limit exceeded, please wait before trying again"}
         else:
             # The caller will handle warnings/errors
             return None
