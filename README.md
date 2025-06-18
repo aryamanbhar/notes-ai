@@ -26,7 +26,7 @@ notes-ai processes **annotated lecture slides** and:
 
 `notes-ai-assistant` integrates Optical Character Recognition (OCR) with Large Language Models (LLMs) from Hugging Face and vision models to transform annotated documents, handwritten notes, and images into structured, searchable, and actionable digital text.
 
-- Uses **Tesseract OCR** and fallback handwritten text extraction pipelines.
+- Uses **Easy OCR** and fallback handwritten text extraction pipelines.
 - Utilizes **Hugging Face Inference API** for semantic understanding, summarization, and Q&A with state-of-the-art LLMs (e.g., `facebook/bart-large-cnn`, `google/flan-t5-xl`).
 - Integrates **Stable Diffusion** for optional note image enhancements and visualization.
 - Built with **Streamlit** for rapid interactive UI and prototyping.
@@ -100,10 +100,12 @@ notes-ai processes **annotated lecture slides** and:
 | No diagrams by default | Generates visuals & mnemonics |
 | No reintegration | Designed for slide enhancement |
 
-## 🧰 Setup (Local Dev)
+## 👩‍💻 Access the service
+
+You can use the live app here:
 
 ```bash
-git clone https://github.com/aryamanbhar/notes-ai.git
-cd notes-ai
-pip install -r requirements.txt
-streamlit run app.py
+https://notes-ai-assistant.streamlit.app/
+
+
+
