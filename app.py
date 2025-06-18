@@ -1,8 +1,8 @@
 import streamlit as st
 import pymupdf
 import os
-from ocr import extract_handwritten_text, run_full_page_ocr
 from ai import generate_creative_outputs, generate_diagram_image_sdxl, load_model
+from ocr import extract_handwritten_text, run_full_page_ocr
 from utils import get_annot_hash
 from export import export_notes_md, export_notes_md_images, get_diagrams_zip
 
