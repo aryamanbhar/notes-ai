@@ -74,6 +74,10 @@ def generate_diagram_image_sdxl(diagram_prompt):
             json=payload,
             timeout=120,
         )
+        print(f"Status code: {response.status_code}")
+        print(f"Headers: {response.headers}")
+        print(f"Content type: {response.headers.get('content-type')}")
+
         if response.status_code == 200 and response.headers.get("content-type", "").startswith("image"):
             return response.content
         elif response.status_code == 503:
